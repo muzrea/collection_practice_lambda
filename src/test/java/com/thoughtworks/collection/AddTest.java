@@ -7,7 +7,7 @@ import java.util.List;
 
 import static org.fest.assertions.api.Assertions.assertThat;
 
-public class AddTest {
+public class  AddTest {
 
     @Test
     public void should_get_sum_of_evens() {
