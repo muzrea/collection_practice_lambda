@@ -6,6 +6,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class MyMap {
 
@@ -19,22 +21,17 @@ public class MyMap {
     }
 
     public List<Integer> getTriple() {
-        List<Integer> resultList = new ArrayList<Integer>();
-        for (Integer i : this.array) {
-            resultList.add(i * 3);
-        }
-        return resultList;
+        Stream<Integer> stream = this.array.stream();
+        return stream.map(n -> n * 3).collect(Collectors.toList());
     }
 
     public List<String> mapLetter() {
-        List<String> resultList = new ArrayList<String>();
-        for (int i = 0; i < this.array.size(); i++) {
-            resultList.add(letterList.get(i));
-        }
-        return resultList;
+        Stream<Integer> stream = this.array.stream();
+        return stream.map(element -> (Character.toString((char) (element + 96)))).collect(Collectors.toList());
     }
 
     public List<String> mapLetters() {
+
         List<String> resultList = new ArrayList<String>();
         for (Integer i : this.array) {
             int firstNumber = (i - 1) / this.letters.length;

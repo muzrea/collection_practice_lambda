@@ -5,6 +5,8 @@ import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 import java.io.ObjectInputStream;
 import java.lang.reflect.Array;
 import java.util.*;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class Add {
 
@@ -33,9 +35,8 @@ public class Add {
             temp += 2;
             i += 2;
         }
-        for (Integer j : array) {
-            sum += j;
-        }
+        Stream<Integer> stream = array.stream();
+        sum = stream.reduce(0, (a, b) -> a + b);
         return sum;
     }
 
@@ -64,26 +65,14 @@ public class Add {
             temp += 2;
             i += 2;
         }
-        for (Integer j : array) {
-            sum += j;
-        }
+        Stream<Integer> stream = array.stream();
+        sum = stream.reduce(0, (a, b) -> a + b);
         return sum;
     }
 
     public int getSumTripleAndAddTwo(List<Integer> arrayList) {
-        int result = 0;
-        ArrayList<Integer> list = new ArrayList<Integer>();
-        int temp = 0;
-        for (Integer i : arrayList) {
-            temp = i * 3 + 2;
-            list.add(temp);
-        }
-        for (Integer j : list) {
-            result += j;
-        }
-        return result;
-
-
+        Stream<Integer> stream = arrayList.stream();
+        return stream.map(n -> n * 3 + 2).reduce(0, (a, b) -> a + b);
     }
 
     public List<Integer> getTripleOfOddAndAddTwo(List<Integer> arrayList) {
@@ -102,19 +91,8 @@ public class Add {
     }
 
     public int getSumOfProcessedOdds(List<Integer> arrayList) {
-        ArrayList<Integer> list = new ArrayList<Integer>();
-        int result = 0;
-        int temp = 0;
-        for (Integer i : arrayList) {
-            if (i % 2 != 0) {
-                temp = i * 3 + 5;
-                list.add(temp);
-            }
-        }
-        for (Integer j : list) {
-            result += j;
-        }
-        return result;
+        Stream<Integer> stream = arrayList.stream();
+        return stream.filter(n -> n % 2 != 0).map(m -> m * 3 + 5).reduce(0, (a, b) -> a + b);
     }
 
     public double getMedianOfEvenIndex(List<Integer> arrayList) {
@@ -155,6 +133,7 @@ public class Add {
     }
 
     public boolean isIncludedInEvenIndex(List<Integer> arrayList, Integer specialElment) {
+
         boolean result = true;
         ArrayList<Integer> list = new ArrayList<Integer>();
         for (Integer i : arrayList) {
@@ -174,13 +153,6 @@ public class Add {
                 list.add(i);
             }
         }
-        /*for (int a = 0; a < list.size(); a++) {
-            for (int b = a+1; b < list.size(); b++) {
-                if (list.get(a) == list.get(b)) {
-                    list.remove(b);
-                }
-            }
-        }*/
         LinkedHashSet<Integer> hs = new LinkedHashSet<Integer>(list);
         List<Integer> resultList = new ArrayList<Integer>(hs);
         return resultList;

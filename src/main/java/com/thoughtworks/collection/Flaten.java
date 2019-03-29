@@ -2,10 +2,9 @@ package com.thoughtworks.collection;
 
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.LinkedHashSet;
-import java.util.List;
+import java.util.*;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class Flaten {
 
@@ -16,24 +15,12 @@ public class Flaten {
     }
 
     public List<Integer> transformToOneDimesional() {
-        List<Integer> list = new ArrayList<Integer>();
-        for (int i = 0; i < array.length; i++) {
-            for (int j = 0; j < array[i].length; j++) {
-                list.add(array[i][j]);
-            }
-        }
-        return list;
+        Stream<Integer[]> stream = Arrays.stream(this.array);
+        return stream.flatMap(m -> Arrays.stream(m)).collect(Collectors.toList());
     }
 
     public List<Integer> transformToUnrepeatedOneDimesional() {
-        List<Integer> list = new ArrayList<Integer>();
-        for (int i = 0; i < array.length; i++) {
-            for (int j = 0; j < array[i].length; j++) {
-                list.add(array[i][j]);
-            }
-        }
-        LinkedHashSet<Integer> hs = new LinkedHashSet<Integer>(list);
-        List<Integer> resultList = new ArrayList<Integer>(hs);
-        return resultList;
+        List<Integer> oneDemensionalList = transformToOneDimesional();
+        return oneDemensionalList.stream().distinct().collect(Collectors.toList());
     }
 }

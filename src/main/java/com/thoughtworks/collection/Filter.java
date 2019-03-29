@@ -3,6 +3,8 @@ package com.thoughtworks.collection;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import java.util.*;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class Filter {
     List<Integer> array;
@@ -12,23 +14,13 @@ public class Filter {
     }
 
     public List<Integer> filterEven() {
-        List<Integer> list = new ArrayList<Integer>();
-        for (Integer j : this.array) {
-            if (j % 2 == 0) {
-                list.add(j);
-            }
-        }
-        return list;
+        Stream<Integer> stream = array.stream();
+        return stream.filter(n -> n % 2 == 0).collect(Collectors.toList());
     }
 
     public List<Integer> filterMultipleOfThree() {
-        List<Integer> list = new ArrayList<Integer>();
-        for (Integer j : this.array) {
-            if (j % 3 == 0) {
-                list.add(j);
-            }
-        }
-        return list;
+        Stream<Integer> stream = array.stream();
+        return stream.filter(n -> n % 3 == 0).collect(Collectors.toList());
     }
 
     public List<Integer> getCommonElements(List<Integer> firstList, List<Integer> secondList) {
@@ -43,9 +35,7 @@ public class Filter {
 
     public List<Integer> getDifferentElements() {
         HashSet<Integer> hs = new HashSet<Integer>(this.array);
-
         List<Integer> resultList = new ArrayList<Integer>(hs);
-
         return resultList;
     }
 }

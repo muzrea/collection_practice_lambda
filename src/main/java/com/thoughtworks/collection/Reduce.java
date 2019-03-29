@@ -6,6 +6,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class Reduce {
 
@@ -24,12 +26,8 @@ public class Reduce {
     }
 
     public double getAverage() {
-        double average = 0;
-        for (Integer i : this.arrayList) {
-            average += i;
-        }
-        average = average / this.arrayList.size();
-        return average;
+        Stream<Integer> stream = this.arrayList.stream();
+        return (double) (stream.reduce(0, (a, b) -> a + b)) / this.arrayList.size();
     }
 
     public double getOrderedMedian() {
@@ -42,15 +40,8 @@ public class Reduce {
     }
 
     public int getFirstEven() {
-        int even = 0;
-        List<Integer> list = new ArrayList<Integer>();
-        for (Integer i : this.arrayList) {
-            if (i % 2 == 0) {
-                list.add(i);
-            }
-        }
-        even = list.get(0);
-        return even;
+        Stream<Integer> stream = this.arrayList.stream();
+        return stream.filter(n -> n % 2 == 0).findFirst().get();
     }
 
     public int getIndexOfFirstEven() {

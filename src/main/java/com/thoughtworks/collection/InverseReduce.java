@@ -5,6 +5,8 @@ import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class InverseReduce {
 
@@ -18,11 +20,6 @@ public class InverseReduce {
     }
 
     public List<Integer> divideToSmaller(int number) {
-        List<Integer> list = new ArrayList<Integer>();
-        while (number - this.random.nextInt(3) > 0) {
-            number -= this.random.nextInt(3);
-            list.add(number);
-        }
-        return list;
+        return Stream.iterate(number - 2, n -> n - 2).limit((number - 1) / 2).collect(Collectors.toList());
     }
 }
